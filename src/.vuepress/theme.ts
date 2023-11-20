@@ -18,8 +18,9 @@ export default hopeTheme({
 
   logo: "https://fastly.jsdelivr.net/gh/comradeWong/ImageStorageService@master/img/170001852140020230506_060002625_iOS.jpg",
 
-  repo: "comradeWong",
-
+  repo: "https://github.com/comradeWong/my_blog_hope",
+  docsRepo: 'https://github.com/comradeWong/my_blog_hope',
+  docsBranch: 'master',
   docsDir: "src",
 
   // navbar
@@ -70,7 +71,6 @@ export default hopeTheme({
       // MrHope: ["https://mister-hope.com", MR_HOPE_AVATAR],
     },
   },
-
   encrypt: {
     config: {
       "/demo/encrypt.html": ["1234"],

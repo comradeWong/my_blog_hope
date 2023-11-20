@@ -1,0 +1,29 @@
+name: deploy
+
+on: [push] # 表示以下情况发生时触发
+    # push:
+    # workflow_dispatch:
+    # schedule:
+    #     # Runs everyday at 8:00 AM
+    #     - cron: '0 0 * * *'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+            - name: Check out repository code
+              uses: actions/checkout@v3
+              
+            - name: Build docs
+                  run: build
+
+            - name: Deploy to Github Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  PERSONAL_TOKEN: ${{ secrets.TOKEN }} # 上一步中仓库变量的 key
+                  EXTERNAL_REPOSITORY: comradewang/comradewang.github.io
+                  PUBLISH_BRANCH: master
+                  PUBLISH_DIR: ./
+                  commit_message: ${{ github.event.head_commit.message }}
