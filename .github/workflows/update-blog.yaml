@@ -15,9 +15,33 @@ jobs:
 
             - name: Check out repository code
               uses: actions/checkout@v3
-              
+              with:
+                  # "最近更新时间"等 git 日志相关信息，需要拉取全部提交记录
+                  fetch-depth: 0
+                  # 安装 Node 环境
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  # 选择要使用的 node 版本
+                  node-version: '18'
+
+                  # 缓存 npm node_modules
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+                restore-keys: |
+                  ${{ runner.os }}-npm-cache-
+
+            # 安装依赖 npm
+            - name: Install dependencies
+              # 如果没有命中缓存才执行 npm install
+              if: steps.cache-deps.outputs.cache-hit != 'true'
+              run: npm install
+
             - name: Build docs
-                  run: npm install && npm run docs:build
+                  run: npm run docs:build
 
             - name: Deploy to Github Pages
               uses: peaceiris/actions-gh-pages@v3
