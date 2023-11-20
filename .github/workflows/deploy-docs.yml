@@ -5,7 +5,7 @@ on:
   push:
     branches:
       # 确保这是你正在使用的分支名称
-      - main
+      - master
 
 permissions:
   contents: write
@@ -42,9 +42,18 @@ jobs:
           pnpm run docs:build
           > src/.vuepress/dist/.nojekyll
 
-      - name: 部署文档
-        uses: JamesIves/github-pages-deploy-action@v4
+      # - name: 部署文档
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     # 这是文档部署到的分支名称
+      #     branch: gh-pages
+      #     folder: src/.vuepress/dist
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          # 这是文档部署到的分支名称
-          branch: gh-pages
-          folder: src/.vuepress/dist
+            PERSONAL_TOKEN: ${{ secrets.TOKEN }} # 上一步中仓库变量的 key
+            EXTERNAL_REPOSITORY: comradewang/comradewang.github.io
+            PUBLISH_BRANCH: master
+            PUBLISH_DIR: src/.vuepress/dist
+            commit_message: ${{ github.event.head_commit.message }}
