@@ -25,5 +25,5 @@ jobs:
                   PERSONAL_TOKEN: ${{ secrets.TOKEN }} # 上一步中仓库变量的 key
                   EXTERNAL_REPOSITORY: comradewang/comradewang.github.io
                   PUBLISH_BRANCH: master
-                  PUBLISH_DIR: ./
+                  PUBLISH_DIR: ../../src/dist
                   commit_message: ${{ github.event.head_commit.message }}
