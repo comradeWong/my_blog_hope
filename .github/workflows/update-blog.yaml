@@ -17,7 +17,7 @@ jobs:
               uses: actions/checkout@v3
               
             - name: Build docs
-                  run: build
+                  run: npm install && npm run docs:build
 
             - name: Deploy to Github Pages
               uses: peaceiris/actions-gh-pages@v3
@@ -25,5 +25,5 @@ jobs:
                   PERSONAL_TOKEN: ${{ secrets.TOKEN }} # 上一步中仓库变量的 key
                   EXTERNAL_REPOSITORY: comradewang/comradewang.github.io
                   PUBLISH_BRANCH: master
-                  PUBLISH_DIR: ../../src/dist
+                  PUBLISH_DIR: src/.vuepress/dist
                   commit_message: ${{ github.event.head_commit.message }}
